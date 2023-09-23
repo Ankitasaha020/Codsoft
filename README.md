@@ -1,7 +1,7 @@
 
 # E-Commerce
 Problem Statement
-Hi, My name is Amit. I am the Owner of a product-based company
+Hi, My name is Ankita. I am the Owner of a product-based company
 where I sell Electronics Appliance. I want to shift my company to the
 online . I Want to hire a web developer for my company. If you are
 interested then you have to complete below tasks.
