@@ -1,0 +1,94 @@
+{% load static %}
+
+
+    <!-- -----------------------------------Navbar start----------------------------------- -->
+    <nav class="navbar navbar-expand-lg mb-2 navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand text-light" href="/"><strong>
+          <img src="../static/fab/favicon-32x32.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          E-Electronics
+        </strong></a>
+        <button class="navbar-toggler border-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            {% comment %} <li class="nav-item mx-2">
+              <a class="nav-link {% block productactive %}{% endblock productactive %}" href="/all-product-details">Listings</a>
+            </li> {% endcomment %}
+            
+            {% if user.is_authenticated %}
+
+              {% if user.user_type == '1' %}
+              <li class="nav-item mx-2">
+                <a class="nav-link {% block addProductActive %}{% endblock addProductActive %}" href="{% url 'add_product' %}">Add Product</a>
+              </li>
+
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="{% url 'admin_product_list' %}">Products</a>
+              </li>
+
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="{% url 'view_all_order' %}">Orders</a>
+              </li>
+              {% else %}
+              <li class="nav-item mx-2">
+                <a class="nav-link" href="{% url 'user_view_all_order' %}">Orders</a>
+              </li>
+              
+              {% endif %}
+
+
+              {% endif %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="{% url 'all_category_details' %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Category
+              </a>
+              
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for cats in cats_menu %}
+                <li><a class="dropdown-item" href="{% url 'category_details' cats.name %}">{{ cats.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+           
+          </ul>
+          {% if user.is_authenticated %}
+          <ul class="navbar-nav mr-2">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Logged in as {{request.user}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <form action='{% url 'handleLogout' %}' method='post'>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="hidden" name="value">
+                        </div>
+
+                        <button class="dropdown-item" type="submit">Logout</button>
+                    </form>
+                    
+                     <a class="dropdown-item" href="{% url 'view_profile' %}">View Profile</a> 
+                </div>
+            </li>
+        </ul>
+
+        {% else %}
+        <!-- Button to trigger login modal -->
+       <button type="button" class="btn mr-2 text-light" data-toggle="modal" data-target="#loginModal" style="background-color: #91C83C;">
+            Login
+        </button>
+        <!-- Button to trigger signup modal -->
+        <button type="button" class="btn mr-2 text-light" data-toggle="modal" data-target="#signupModal" style="background-color: #FAA019;">
+            Sign Up
+        </button> 
+        {% endif %}
+        </div>
+      </div>
+  </nav>
+
+
+

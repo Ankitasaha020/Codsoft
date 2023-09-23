@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}view order details{% endblock title %}
+
+
+{% block body %}
+
+<!---------- local stylesheet ---------->
+<link rel="stylesheet" href="{% static "css/view_order_style.css" %}">
+
+<!---------- Header section ---------->
+<div class="d-flex flex-column justify-content-center align-items-center" id="order-heading">
+    <div class="text-uppercase">
+        <p>Order detail</p>
+    </div>
+    <div class="h4">Sunday May 15, 2022</div>
+</div>
+<!---------- Header section ends ---------->
+
+<!---------- Shipping details section starts ---------->
+<div class="wrapper bg-white shadow-lg">
+    <div class="table-responsive">
+        <!---------- Headings here ---------->
+        <table class="table table-borderless">
+            <thead>
+                <tr class="text-uppercase text-muted">
+                    <th scope="col">product</th>
+                    <th scope="col" class="text-right">Total Items : {{order.items}}</th>
+                </tr>
+            </thead>
+        <!---------- Headings here end---------->
+
+        <!---------- Heading value goes here ---------->
+            <tbody>
+                <tr>
+                    <th scope="row">Product Name : {{orderDetails.order.product.title}}</th>
+                    <td class="text-right"><b>Total cost ₹ {{orderDetails.order.total_price}}</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!---------- Heading value ends ---------->
+
+
+
+
+    <!---------- other Shipping details section  ---------->
+    
+    <div class="d-sm-flex justify-content-start rounded my-3 inline-style">
+        <div>
+            <b>User Name:</b>
+        </div>
+        <div class="ml-2">
+            {{ order.user.first_name }} {{ order.user.last_name }}
+        </div>
+    </div>
+    <div class="d-sm-flex justify-content-start rounded my-3 inline-style">
+        <div>
+            <b>Email:</b>
+        </div>
+        <div class="ml-2">
+            {{order.user.email}}
+        </div>
+    </div>
+
+    <div class="d-sm-flex justify-content-start rounded my-3 inline-style">
+        <div>
+            <b>User Type:</b>
+        </div>
+        <div class="ml-2">
+            {% if order.user.user_type == '1' %}
+                Admin
+                <div class="ml-2">
+                    <b>Employee ID : </b> {{order.emp_id}}
+                    <br>
+                    <b>Employee Name : </b> {{order.emp_name}}
+                    <br>
+                    <b>Purpose : </b> {{order.purpose}}
+                </div>
+            {% endif %}
+                
+            {% if order.user.user_type == '2' %}
+                Normal User
+                <div class="ml-2">
+                    <b>Purpose : </b> {{order.purpose}}
+                </div>
+            {% endif %}
+                
+            {% if order.user.user_type == '3' %}
+                Company User
+                <div class="ml-2">
+                    <b>Employee ID : </b> {{order.emp_id}}
+                    <br>
+                    <b>Employee Name : </b> {{order.emp_name}}
+                    <br>
+                    <b>Purpose : </b> {{order.purpose}}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="d-sm-flex justify-content-start rounded my-3 inline-style">
+        <div>
+            <b>Expected Delivery Date:</b>
+        </div>
+        <div class="ml-2">
+            {{orderDetails.delivery_date}}
+        </div>
+    </div>
+
+    <div class="d-sm-flex justify-content-start rounded my-3 inline-style">
+        <div>
+            <b>Shipping partner:</b>
+        </div>
+        <div class="ml-2">
+            {{orderDetails.shipping_partner}}
+        </div>
+    </div>
+
+
+    <div class="d-sm-flex justify-content-start rounded my-3 inline-style">
+        <div>
+            <b>Shipment Location:</b>
+        </div>
+        <div class="ml-2">
+            {{orderDetails.delivery_address}}
+        </div>
+    </div>
+    <div class="d-sm-flex justify-content-start rounded my-3 inline-style">
+        <div>
+            <b>Current Location:</b>
+        </div>
+        <div class="ml-2">
+            {{orderDetails.product_location}}
+        </div>
+    </div>
+
+    <div class="d-sm-flex justify-content-start rounded my-3 inline-style">
+        <div>
+            <b>Payment Status:</b>
+        </div>
+        <div class="ml-2">
+            {{orderDetails.payment_status}}
+        </div>
+    </div>
+
+    <!---------- other Shipping details section ends ---------->
+   
+    <!---------- Shipping details section ends ---------->
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="h4">Thanks for choosing us!</div>
+    </div>
+
+</div>
+
+{% endblock body %}
